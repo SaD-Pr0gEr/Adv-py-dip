@@ -1,0 +1,201 @@
+AdminUsersToken = Token 12d359c6097c4092b1fd199a0cda7830a9f4e69d
+NotAdminUsersToken = Token 1863ea99e31d337ae0cd2bd8bf6b070f5749b5e0
+
+
+GET "http://127.0.0.1:8000/shop/api/v1/products/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+POST "http://127.0.0.1:8000/shop/api/v1/products/"
+Content-type: application/json
+Authorization: AdminUserToken
+
+{
+    "name": "test_product_1",
+    "description": "it's test product for http file",
+    "price": 100
+}
+
+###
+
+PUT "http://127.0.0.1:8000/shop/api/v1/products/8/"
+Content-type: application/json
+Authorization: AdminUserToken
+
+{
+    "name": "test_product_change_1",
+    "description": "it's changed test product for http file",
+    "price": 10
+}
+
+###
+
+PATCH "http://127.0.0.1:8000/shop/api/v1/products/8/"
+Content-type: application/json
+Authorization: AdminUserToken
+
+{
+    "name": "test_product_change1_1",
+    "description": "it's changed test product for http file"
+}
+
+###
+
+DELETE "http://127.0.0.1:8000/shop/api/v1/products/8/"
+Content-type: application/json
+Authorization: AdminUserToken
+
+###
+
+GET "http://127.0.0.1:8000/shop/api/v1/product-reviews/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+POST "http://127.0.0.1:8000/shop/api/v1/product-reviews/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "product": 3,
+    "comment": "test comment for http file",
+    "rating": 4
+}
+
+###
+
+PUT "http://127.0.0.1:8000/shop/api/v1/product-reviews/41/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "product": 3,
+    "comment": "change test comment for http file",
+    "rating": 4
+}
+
+###
+
+PATCH "http://127.0.0.1:8000/shop/api/v1/product-reviews/41/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "product": 3,
+    "comment": "changed test comment for http file",
+    "rating": 4
+}
+
+###
+
+DELETE "http://127.0.0.1:8000/shop/api/v1/product-reviews/41/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+GET "http://127.0.0.1:8000/shop/api/v1/orders/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+POST "http://127.0.0.1:8000/shop/api/v1/orders/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "positions": [
+        {
+            "product": 3,
+            "quantity": 10
+        },
+        {
+            "product": 6,
+            "quantity": 8
+        }
+    ]
+}
+
+###
+
+PUT "http://127.0.0.1:8000/shop/api/v1/orders/17"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "positions": [
+        {
+            "product": 3,
+            "quantity": 10
+        },
+        {
+            "product": 6,
+            "quantity": 10
+        }
+    ]
+}
+
+###
+
+PATCH "http://127.0.0.1:8000/shop/api/v1/orders/17"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "positions": [
+        {
+            "product": 3,
+            "quantity": 10
+        },
+        {
+            "product": 6,
+            "quantity": 10
+        }
+    ]
+}
+
+###
+
+DELETE "http://127.0.0.1:8000/shop/api/v1/orders/17"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+GET "http://127.0.0.1:8000/shop/api/v1/product-collections/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+###
+
+POST "http://127.0.0.1:8000/shop/api/v1/product-collections/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "header": "this is header",
+    "text": "this is text",
+    "product": [4]
+}
+
+###
+
+PATCH "http://127.0.0.1:8000/shop/api/v1/product-collections/6/"
+Content-type: application/json
+Authorization: NotAdminUsersToken
+
+{
+    "header": "this is header",
+    "text": "this is text",
+    "product": [3]
+}
+
+###
+
+DELETE "http://127.0.0.1:8000/shop/api/v1/product-collections/6/"
+Content-type: application/json
+Authorization: NotAdminUsersToken

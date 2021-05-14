@@ -1,0 +1,96 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="14">
+            <item index="0" class="java.lang.String" itemvalue="index" />
+            <item index="1" class="java.lang.String" itemvalue="color:" />
+            <item index="2" class="java.lang.String" itemvalue="%}" />
+            <item index="3" class="java.lang.String" itemvalue="{%" />
+            <item index="4" class="java.lang.String" itemvalue="url" />
+            <item index="5" class="java.lang.String" itemvalue="load" />
+            <item index="6" class="java.lang.String" itemvalue="static" />
+            <item index="7" class="java.lang.String" itemvalue="align" />
+            <item index="8" class="java.lang.String" itemvalue="padding:" />
+            <item index="9" class="java.lang.String" itemvalue="0px," />
+            <item index="10" class="java.lang.String" itemvalue="20px" />
+            <item index="11" class="java.lang.String" itemvalue="padding" />
+            <item index="12" class="java.lang.String" itemvalue="background-color" />
+            <item index="13" class="java.lang.String" itemvalue="color" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="9">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="p" />
+            <item index="7" class="java.lang.String" itemvalue="ul" />
+            <item index="8" class="java.lang.String" itemvalue="a" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E712" />
+          <option value="E302" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="int.found_result_vk_id" />
+          <option value="app.models.Player.id" />
+          <option value="app.models.Team.id" />
+          <option value="phones.models.Phone.objects" />
+          <option value="app.models.Sponsor.id" />
+          <option value="app.models.Team.objects" />
+          <option value="app.models.Sponsor.*" />
+          <option value="articles.models.Article.*" />
+          <option value="django.contrib.auth.admin.site" />
+          <option value="school.models.Student.*" />
+          <option value="app.models.Comment.*" />
+          <option value="app.models.Posts.*" />
+          <option value="measurements.models.Project.objects" />
+          <option value="measurements.models.Measurement.*" />
+          <option value="app.models.Order.*" />
+          <option value="app.models.ProductOrders.*" />
+          <option value="telebot.TeleBot.*" />
+          <option value="main.current_state" />
+          <option value="app.models.Users.*" />
+          <option value="app.models.AlitaPhotos.*" />
+          <option value="orders.models.Orders.*" />
+          <option value="orders.models.ProductOrders.*" />
+          <option value="advertisements.models.Advertisement.*" />
+          <option value="enrollment.models.Application.*" />
+          <option value="enrollment.models.Participant.objects" />
+          <option value="app.models.Product.*" />
+          <option value="second_api.orders" />
+          <option value="app.models.User.*" />
+          <option value="phone_comparison.phones.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

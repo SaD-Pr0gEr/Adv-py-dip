@@ -1,0 +1,167 @@
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
+
+body {
+    background: #0C090A;
+}
+
+.header {
+    background: #B70000 ;
+    color: #E5E400;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+
+}
+
+
+.footer {
+    background: #B70000;
+    color: #E5E400;
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.bar {
+    background: #1E1727;
+    width: 25%;
+    margin: 10px;
+    padding: 10px;
+    color: #C60000;
+    font-size: 20px;
+    float: left;
+    text-align: center;
+}
+
+
+.content {
+    margin: 10px;
+    padding: 10px;
+    width: 68%;
+    font-size: 20px;
+    background: #EAC117;
+    float: left;
+}
+
+
+.product {
+    margin: inherit;
+    margin-left: 15px;
+    padding: 5px;
+    padding-top: 15px;
+    font-size: 20px;
+    width: 183px;
+    height: 200px;
+    background: purple;
+    color: yellow;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    hyphens: auto;
+}
+
+
+.product_image {
+    width: 120px;
+    height: 115px;
+}
+
+
+.site_name {
+    float: left;
+    margin-left: 100px;
+    color: black;
+}
+
+
+a.site_name {
+    text-decoration: none;
+    font-size: 25px;
+}
+
+
+a.description {
+    color: #C60000;
+    text-decoration: none;
+    color: yellow;
+}
+
+
+.home {
+    color: #C60000;
+    display: block;
+    margin: 5px;
+}
+
+
+.collections {
+    color: #C60000;
+    display: block;
+    margin: 5px;
+}
+
+
+.about_us {
+    color: #C60000;
+    display: block;
+    margin: 5px;
+}
+
+
+.support {
+    color: #C60000;
+    display: block;
+    margin: 5px;
+}
+
+
+.telegram {
+    width: 30px;
+    height: 30px;
+    color: yellow;
+    margin: 5px;
+}
+
+
+.vk {
+    width: 30px;
+    height: 30px;
+    color: yellow;
+    margin: 5px;
+}
+
+
+.home_footer {
+    width: 30px;
+    height: 30px;
+    color: yellow;
+    margin: 5px;
+}
+
+
+.about_us_footer {
+    width: 30px;
+    height: 30px;
+    color: yellow;
+    margin: 5px;
+}
+
+
+.support_footer {
+    width: 30px;
+    height: 30px;
+    color: yellow;
+    margin: 5px;
+}
+
+
+.product_name {
+    color: yellow;
+}
