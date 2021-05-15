@@ -36,3 +36,8 @@ def collections_fabric():
         return baker.make("shop.collections", **kwargs)
     return create
 
+@pytest.fixture
+def user_fabric():
+    def create(**kwargs):
+        return baker.make("shop.User", **kwargs)
+    return create
