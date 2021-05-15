@@ -14,9 +14,6 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ["id", "name", "description", "price", "created_date", "updated_date", "photo"]
 
-    def create(self, validated_data):
-        return super().create(validated_data)
-
 
 class ProductCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
@@ -27,8 +24,7 @@ class ProductCommentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = validated_data["user"]
-        check_count = ProductComment.objects.filter(user=user, product=self.validated_data["product"]).count()
-        if check_count >= 1:
+        if ProductComment.objects.filter(user=user, product=self.validated_data["product"]).exists():
             raise serializers.ValidationError(f"вы не можете оставить более 1 комментарий на этот продукт")
         return super().create(validated_data)
 
@@ -60,10 +56,10 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        check_positions = validated_data["positions"]
-        if not check_positions:
-            raise serializers.ValidationError(f"Вы ничего не передали в список позиции!")
         products = validated_data.pop("positions")
+
+        if not products:
+            raise serializers.ValidationError(f"Вы ничего не передали в список позиции!")
 
         if validated_data["user"].is_staff and "order_status" not in self.context["request"].data:
             raise serializers.ValidationError(f"Вы не передали статус заказа!")
@@ -132,9 +128,3 @@ class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collections
         fields = ["id", "header", "text", "created_date", "updated_date", "product"]
-
-    def create(self, validated_data):
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)

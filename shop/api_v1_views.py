@@ -14,7 +14,6 @@ class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     filterset_class = ProductFilterSet
     filter_backends = [DjangoFilterBackend]
-    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_permissions(self):
         """Получение прав для действий."""
@@ -33,7 +32,6 @@ class ProductCommentsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductCommentSerializer
     filterset_class = ProductCommentFilterSet
     filter_backends = [DjangoFilterBackend]
-    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_permissions(self):
         """Получение прав для действий."""
@@ -54,11 +52,9 @@ class ProductCommentsViewSet(viewsets.ModelViewSet):
 
 class OrdersViewSet(viewsets.ModelViewSet):
 
-    queryset = Orders.objects.prefetch_related("positions").all()
     serializer_class = OrderSerializer
     filterset_class = OrderFilterSet
     filter_backends = [DjangoFilterBackend]
-    permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
         """Получение прав для действий."""
@@ -89,7 +85,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:
-            return Orders.objects.all()
+            return Orders.objects.prefetch_related("positions").all()
         return user.orders.all()
 
 
@@ -99,7 +95,6 @@ class CollectionsViewSet(viewsets.ModelViewSet):
     serializer_class = CollectionSerializer
     filterset_class = CollectionFilterSet
     filter_backends = [DjangoFilterBackend]
-    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_permissions(self):
         """Получение прав для действий."""
