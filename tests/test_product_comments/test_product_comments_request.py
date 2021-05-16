@@ -2,20 +2,18 @@ from django.urls import reverse
 from rest_framework.authtoken.models import Token
 import pytest
 
-from shop.models import Orders, OrderPositions, Collections, Product, ProductComment, User
-
 
 @pytest.mark.django_db
-def test_request_list_product_comments(client, product_comment_fabric, user_fabric):
+def test_request_list_product_comments(authorize, token_fabric, product_comment_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     quantity = 20
-    product = product_comment_fabric(_quantity=quantity)
+    product_comment_fabric(_quantity=quantity)
     url = reverse("product_reviews-list")
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -23,15 +21,15 @@ def test_request_list_product_comments(client, product_comment_fabric, user_fabr
 
 
 @pytest.mark.django_db
-def test_request_retrieve_product_comment(client, product_comment_fabric, user_fabric):
+def test_request_retrieve_product_comment(authorize, token_fabric, product_comment_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product_comment = product_comment_fabric()
     url = reverse("product_reviews-detail", args=(product_comment.id,))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -39,10 +37,10 @@ def test_request_retrieve_product_comment(client, product_comment_fabric, user_f
 
 
 @pytest.mark.django_db
-def test_request_post_product_comment(client, product_comment_fabric, user_fabric):
+def test_request_post_product_comment(authorize, token_fabric, product_comment_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product_comment = product_comment_fabric()
     url = reverse("product_reviews-list")
     json = {
@@ -50,9 +48,9 @@ def test_request_post_product_comment(client, product_comment_fabric, user_fabri
         "comment": "good",
         "rating": 5
     }
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     resposne = client.post(url, data=json)
 
     # assert
@@ -60,10 +58,10 @@ def test_request_post_product_comment(client, product_comment_fabric, user_fabri
 
 
 @pytest.mark.django_db
-def test_request_patch_product_comment(client, product_comment_fabric, user_fabric):
+def test_request_patch_product_comment(authorize, token_fabric, product_comment_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product_comment = product_comment_fabric(user=user)
     url = reverse("product_reviews-detail", args=(product_comment.id,))
     json = {
@@ -71,9 +69,9 @@ def test_request_patch_product_comment(client, product_comment_fabric, user_fabr
         "comment": "good",
         "rating": 5
     }
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     resposne = client.patch(url, data=json)
 
     # assert
@@ -81,15 +79,15 @@ def test_request_patch_product_comment(client, product_comment_fabric, user_fabr
 
 
 @pytest.mark.django_db
-def test_request_delete_product_comment(client, product_comment_fabric, user_fabric):
+def test_request_delete_product_comment(authorize, token_fabric, product_comment_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product_comment = product_comment_fabric(user=user)
     url = reverse("product_reviews-detail", args=(product_comment.id,))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     resposne = client.delete(url)
 
     # assert

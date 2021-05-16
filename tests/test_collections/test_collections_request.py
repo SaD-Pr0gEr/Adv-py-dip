@@ -1,21 +1,18 @@
 from django.urls import reverse
-from rest_framework.authtoken.models import Token
 import pytest
-
-from shop.models import Orders, OrderPositions, Collections, Product, ProductComment, User
 
 
 @pytest.mark.django_db
-def test_request_list_collections(client, collections_fabric, user_fabric):
+def test_request_list_collections(authorize, collections_fabric, user_fabric, token_fabric):
     # arrange
     user = user_fabric(is_staff=True)
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     quantity = 10
     collections_fabric(_quantity=quantity)
     url = reverse("product_collections-list")
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -23,15 +20,15 @@ def test_request_list_collections(client, collections_fabric, user_fabric):
 
 
 @pytest.mark.django_db
-def test_request_retrieve_collections(client, collections_fabric, user_fabric):
+def test_request_retrieve_collections(authorize, collections_fabric, user_fabric, token_fabric):
     # arrange
     user = user_fabric(is_staff=True)
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     collection = collections_fabric()
     url = reverse("product_collections-detail", args=(collection.id, ))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -39,10 +36,10 @@ def test_request_retrieve_collections(client, collections_fabric, user_fabric):
 
 
 @pytest.mark.django_db
-def test_request_post_collections(client, product_fabric, collections_fabric, user_fabric):
+def test_request_post_collections(authorize, product_fabric, collections_fabric, user_fabric, token_fabric):
     # arrange
     user = user_fabric(is_staff=True)
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     url = reverse("product_collections-list")
     product1 = product_fabric()
     product2 = product_fabric()
@@ -51,9 +48,9 @@ def test_request_post_collections(client, product_fabric, collections_fabric, us
         "text": "test",
         "product": [product1.id, product2.id]
     }
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.post(url, data)
 
     # assert
@@ -61,10 +58,10 @@ def test_request_post_collections(client, product_fabric, collections_fabric, us
 
 
 @pytest.mark.django_db
-def test_request_patch_collections(client, product_fabric, collections_fabric, user_fabric):
+def test_request_patch_collections(authorize, product_fabric, collections_fabric, user_fabric, token_fabric):
     # arrange
     user = user_fabric(is_staff=True)
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     collection1 = collections_fabric()
     url = reverse("product_collections-detail", args=(collection1.id, ))
     product1 = product_fabric()
@@ -74,9 +71,9 @@ def test_request_patch_collections(client, product_fabric, collections_fabric, u
         "text": "test",
         "product": [product1.id, product2.id]
     }
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.patch(url, data)
 
     # assert
@@ -84,14 +81,14 @@ def test_request_patch_collections(client, product_fabric, collections_fabric, u
 
 
 @pytest.mark.django_db
-def test_request_delete_collections(client, product_fabric, collections_fabric, user_fabric):
+def test_request_delete_collections(authorize, product_fabric, collections_fabric, user_fabric, token_fabric):
     # arrange
     user = user_fabric(is_staff=True)
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     collection1 = collections_fabric()
     url = reverse("product_collections-detail", args=(collection1.id, ))
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+    client = authorize(token)
     response = client.delete(url)
 
     # assert

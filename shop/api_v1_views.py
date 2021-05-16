@@ -86,7 +86,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_staff:
             return Orders.objects.prefetch_related("positions").all()
-        return user.orders.all()
+        return user.orders.prefetch_related("positions").all()
 
 
 class CollectionsViewSet(viewsets.ModelViewSet):

@@ -1,22 +1,19 @@
 from django.urls import reverse
-from rest_framework.authtoken.models import Token
 import pytest
-
-from shop.models import Orders, OrderPositions, Collections, Product, ProductComment, User
 
 
 @pytest.mark.django_db
-def test_request_list_orders(client, orders_fabric, product_fabric, user_fabric):
+def test_request_list_orders(authorize, token_fabric, orders_fabric, product_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product = orders_fabric(
         user=user,
     )
     url = reverse("orders-list")
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -24,17 +21,17 @@ def test_request_list_orders(client, orders_fabric, product_fabric, user_fabric)
 
 
 @pytest.mark.django_db
-def test_request_retrieve_orders(client, orders_fabric, product_fabric, user_fabric):
+def test_request_retrieve_orders(authorize, token_fabric, orders_fabric, product_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product = orders_fabric(
         user=user,
     )
     url = reverse("orders-detail", args=(product.id,))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.get(url)
 
     # assert
@@ -42,10 +39,10 @@ def test_request_retrieve_orders(client, orders_fabric, product_fabric, user_fab
 
 
 @pytest.mark.django_db
-def test_request_post_orders(client, orders_fabric, product_fabric, user_fabric):
+def test_request_post_orders(authorize, token_fabric, orders_fabric, product_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product1 = product_fabric()
     product2 = product_fabric()
     data = {
@@ -61,19 +58,19 @@ def test_request_post_orders(client, orders_fabric, product_fabric, user_fabric)
         ]
     }
     url = reverse("orders-list")
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.post(url, data)
     # assert
     assert response.status_code == 201 and response.data["positions"][0]["product"] == data["positions"][0]["product"]
 
 
 @pytest.mark.django_db
-def test_request_patch_orders(client, orders_fabric, product_fabric, user_fabric):
+def test_request_patch_orders(authorize, token_fabric, orders_fabric, product_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     product1 = product_fabric()
     product2 = product_fabric()
     order1 = orders_fabric(user=user)
@@ -90,24 +87,24 @@ def test_request_patch_orders(client, orders_fabric, product_fabric, user_fabric
         ]
     }
     url = reverse("orders-detail", args=(order1.id, ))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.patch(url, data)
     # assert
     assert response.status_code == 200 and response.data['positions'][0]["quantity"] == data["positions"][0]["quantity"]
 
 
 @pytest.mark.django_db
-def test_request_delete_orders(client, orders_fabric, product_fabric, user_fabric):
+def test_request_delete_orders(authorize, token_fabric, orders_fabric, product_fabric, user_fabric):
     # arrange
     user = user_fabric()
-    token = Token.objects.create(user=user)
+    token = token_fabric(user=user)
     order1 = orders_fabric(user=user)
     url = reverse("orders-detail", args=(order1.id, ))
+    client = authorize(token)
 
     # act
-    client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
     response = client.delete(url)
 
     # assert

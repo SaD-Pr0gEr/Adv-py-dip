@@ -1,12 +1,16 @@
 import pytest
 from model_bakery import baker
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 
 @pytest.fixture
-def client():
-    client = APIClient()
-    return client
+def authorize():
+    def return_client(token):
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+        return client
+    return return_client
 
 
 @pytest.fixture
@@ -36,8 +40,16 @@ def collections_fabric():
         return baker.make("shop.collections", **kwargs)
     return create
 
+
 @pytest.fixture
 def user_fabric():
     def create(**kwargs):
         return baker.make("shop.User", **kwargs)
+    return create
+
+
+@pytest.fixture
+def token_fabric():
+    def create(**kwargs):
+        return Token.objects.create(**kwargs)
     return create
