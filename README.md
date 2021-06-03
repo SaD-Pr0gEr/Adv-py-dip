@@ -31,3 +31,13 @@
 * в проекте есть тестовые данные для быстрой работы с проектом! чтобы передать их в базу данных 
 наберите команду **python manage.py loaddata fixtures.json**
 * запустите сервер с командой **python manage.py runserver**
+
+## Запуск проекта на Docker 
+1. Пишем **docker compose build**
+2. **docker compose up**
+3. Прогоняем миграции. Для этого сначала наберите **docker exec -it (name_container_for_api) bash**
+4. Как только открыли bash консоль пишем **python manage.py migrate**
+5. Создаём супер юзера c **python manage.py createsuperuser**
+6. Если хотите добавить тестовые данные пишите **python manage.py loaddata fixtures.json**
+
+После этого смело наслаждайтесь сервером)) Удачи в проектах)

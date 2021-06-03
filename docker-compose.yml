@@ -1,0 +1,26 @@
+services:
+  api:
+    depends_on:
+      - db
+    image: compose-homework
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - 8000:8000
+    networks:
+      - db-network
+    env_file:
+      - .env.dev
+  db:
+    image: postgres:12.0-alpine
+    environment:
+      POSTGRES_USER: owner_dj_diplom
+      POSTGRES_PASSWORD: owner_dj_diplom
+      POSTGRES_DB: dj_diplom
+    networks:
+      - api-network
+      - db-network
+networks:
+  api-network:
+  db-network:
