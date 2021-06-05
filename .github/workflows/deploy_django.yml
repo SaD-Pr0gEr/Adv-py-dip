@@ -48,8 +48,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      env:
-        TESTING: 2
+        env:
+          TESTING: 2
 
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
