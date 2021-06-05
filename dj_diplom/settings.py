@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -104,21 +103,22 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'ENGINE': os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+        'NAME': os.environ.get("SQL_DATABASE", "dj_diplom"),
+        'USER': os.environ.get("SQL_USER", "postgres"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", "Ozodchik2712"),
+        'HOST': os.environ.get("SQL_HOST", "localhost"),
+        'PORT': os.environ.get("SQL_PORT", "5432"),
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
-#         'NAME': os.environ.get("SQL_DATABASE", "dj_diplom"),
-#         'USER': os.environ.get("SQL_USER", "owner_dj_diplom"),
-#         'PASSWORD': os.environ.get("SQL_PASSWORD", "owner_dj_diplom"),
-#         'HOST': os.environ.get("SQL_HOST", "localhost"),
-#         'PORT': os.environ.get("SQL_PORT", "5432"),
-#     }
-# }
+if int(os.environ.get("TESTING")):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'mydatabase',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
