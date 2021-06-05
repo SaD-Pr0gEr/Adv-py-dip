@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "fooo")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -102,12 +102,12 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE"),
-        'NAME': os.environ.get("SQL_DATABASE"),
-        'USER': os.environ.get("SQL_USER"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD"),
-        'HOST': os.environ.get("SQL_HOST"),
-        'PORT': os.environ.get("SQL_PORT"),
+        'ENGINE': os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+        'NAME': os.environ.get("SQL_DATABASE", "dj_diplom"),
+        'USER': os.environ.get("SQL_USER", "owner_dj_diplom"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", "owner_dj_diplom"),
+        'HOST': os.environ.get("SQL_HOST", "localhost"),
+        'PORT': os.environ.get("SQL_PORT", "5432"),
     }
 }
 

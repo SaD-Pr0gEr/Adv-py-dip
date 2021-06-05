@@ -1,0 +1,40 @@
+name: django-app
+
+on: [ push ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ext-requirements.txt
+
+      - name: Test with pytest
+        run: pytest
+
+  deploy:
+    needs: tests
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "ci-cd-django-shop"
+          heroku_email: dilovardehkanov730@gmail.com
+          usedocker: True
