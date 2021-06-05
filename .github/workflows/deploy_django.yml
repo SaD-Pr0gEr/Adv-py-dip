@@ -5,6 +5,17 @@ on: [ push ]
 jobs:
   tests:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries
 
     steps:
       - name: Checkout code
@@ -20,9 +31,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Test with pytest
-        run: pytest
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '11'
 
+      - name: Run migrations
+        run: python manage.py migrate
+      - name: Run tests
+        run: pytest
   deploy:
     needs: tests
 
