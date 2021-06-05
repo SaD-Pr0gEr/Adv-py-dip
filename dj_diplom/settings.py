@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django_heroku
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -25,6 +27,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "fooo")
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+django_heroku.settings(locals())
 
 # Application definition
 
