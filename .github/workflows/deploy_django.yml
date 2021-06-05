@@ -6,6 +6,16 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_DB: dj_diplom
+          POSTGRES_USER: owner_dj_diplom
+          POSTGRES_PASSWORD: owner_dj_diplom
+        ports:
+          - 5432:5432
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
