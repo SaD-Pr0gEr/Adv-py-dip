@@ -112,7 +112,7 @@ DATABASES = {
     }
 }
 
-if int(os.environ.get("TESTING")):
+if int(os.environ.get("TESTING")) == 1:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
