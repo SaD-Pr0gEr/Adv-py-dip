@@ -51,6 +51,8 @@ jobs:
 
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
+          env:
+            TESTING: 0
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "ci-cd-django-shop"
           heroku_email: dilovardehkanov730@gmail.com
