@@ -104,34 +104,22 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
-        'NAME': os.environ.get("SQL_DATABASE", "dj_diplom"),
-        'USER': os.environ.get("SQL_USER", "owner_dj_diplom"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD", "owner_dj_diplom"),
-        'HOST': os.environ.get("SQL_HOST", "localhost"),
-        'PORT': os.environ.get("SQL_PORT", "5432"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
+            'ENGINE': os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+            'NAME': os.environ.get("SQL_DATABASE", "dj_diplom"),
+            'USER': os.environ.get("SQL_USER", "owner_dj_diplom"),
+            'PASSWORD': os.environ.get("SQL_PASSWORD", "owner_dj_diplom"),
+            'HOST': os.environ.get("SQL_HOST", "localhost"),
+            'PORT': os.environ.get("SQL_PORT", "5432"),
         }
     }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
