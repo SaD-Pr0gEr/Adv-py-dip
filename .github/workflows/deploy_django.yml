@@ -10,7 +10,7 @@ jobs:
       db:
         image: postgres
         env:
-          TESTING: 0
+          TESTING: 2
           POSTGRES_DB: dj_diplom
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: Ozodchik2712
@@ -33,7 +33,7 @@ jobs:
 
       - name: Run migrations
         env:
-          TESTING: 0
+          TESTING: 2
         run: python manage.py migrate
       - name: Run tests
         env:
@@ -48,8 +48,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        env:
-          TESTING: 0
+      env:
+        TESTING: 2
 
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
