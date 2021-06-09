@@ -28,3 +28,7 @@ def return_product(request):
         template_name=html,
         context=context
     )
+
+def return_page_register(request):
+    html = "shop/register.html"
+    return render(request, html)

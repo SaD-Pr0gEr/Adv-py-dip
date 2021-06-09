@@ -1,6 +1,12 @@
 from django_filters import rest_framework as filters
 
-from shop.models import Orders, Product, Collections, ProductComment
+from shop.models import Orders, Product, Collections, ProductComment, User
+
+
+class UsersFilterSet(filters.FilterSet):
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name"]
 
 
 class OrderFilterSet(filters.FilterSet):

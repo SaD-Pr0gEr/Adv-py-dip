@@ -1,12 +1,41 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from shop.filters import ProductFilterSet, OrderFilterSet, CollectionFilterSet, ProductCommentFilterSet
-from shop.models import Product, ProductComment, Orders, Collections
-from shop.serializers import ProductSerializer, ProductCommentSerializer, OrderSerializer, CollectionSerializer
+from shop.models import Product, ProductComment, Orders, Collections, User
+from shop.serializers import ProductSerializer, ProductCommentSerializer, OrderSerializer, CollectionSerializer, \
+    UserSerializer
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        """Получение прав для действий."""
+
+        if self.action in ["create"]:
+            return [AllowAny()]
+
+        if self.action in ["update", "partial_update", "destroy"]:
+            return [IsAuthenticated()]
+
+        if self.action in ["list", "retrieve"]:
+            return [IsAdminUser()]
+        return []
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        check_user = User.objects.get(pk=kwargs["pk"])
+        check_token = Token.objects.get(user=check_user)
+        if request.auth.pk != check_token:
+            raise ValidationError("Вы не можете удалить чужой профиль!")
+        return super(UserViewSet, self).destroy(request, *args, **kwargs)
 
 class ProductsViewSet(viewsets.ModelViewSet):
 

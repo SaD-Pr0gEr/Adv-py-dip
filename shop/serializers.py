@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from shop.models import User, Orders, Product, ProductComment, Collections, OrderPositions, StatusChoices
 
@@ -6,7 +8,20 @@ from shop.models import User, Orders, Product, ProductComment, Collections, Orde
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "username", "first_name", "last_name"]
+        fields = ["id", "username", "first_name", "last_name", "email", "password"]
+
+    def create(self, validated_data):
+        if User.objects.filter(email=validated_data["email"]):
+            raise serializers.ValidationError("Человек с таким email уже существует!")
+        pop_user = validated_data.pop("user")
+        user = super().create(validated_data)
+        token = Token.objects.create(user=user)
+        return user
+
+    def update(self, instance, validated_data):
+        if instance.auth_token.pk != self.context["request"].auth.pk:
+            raise serializers.ValidationError("Вы не можете изменить чужой профиль!")
+        return super().update(instance, validated_data)
 
 
 class ProductSerializer(serializers.ModelSerializer):
