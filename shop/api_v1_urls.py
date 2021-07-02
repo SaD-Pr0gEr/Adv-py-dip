@@ -16,16 +16,12 @@ Including another URLconf
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from shop.api_v1_views import ProductsViewSet, ProductCommentsViewSet, OrdersViewSet, CollectionsViewSet, UserViewSet
-from shop.views import return_page_register
+from shop.api_v1_views import ProductsViewSet, ProductCommentsViewSet, OrdersViewSet, CollectionsViewSet
 
 router = DefaultRouter()
 router.register("products", ProductsViewSet, basename="products")
 router.register("product-reviews", ProductCommentsViewSet, basename="product_reviews")
 router.register("orders", OrdersViewSet, basename="orders")
 router.register("product-collections", CollectionsViewSet, basename="product_collections")
-router.register("set_user", UserViewSet, basename="user_set")
 
-urlpatterns = [
-    path("signup/", return_page_register, name="signup")
-] + router.urls
+urlpatterns = [] + router.urls

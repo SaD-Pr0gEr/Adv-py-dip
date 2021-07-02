@@ -10,7 +10,7 @@ class CollectionInline(admin.TabularInline):
 
 
 class IsUserAdmin(UserAdmin):
-    list_display = ("username", "first_name", "last_name", "email", "is_staff")
+    list_display = ("id", "username", "first_name", "last_name", "email", "is_staff")
     list_filter = ("is_staff", )
     readonly_fields = ["username", "first_name", "last_name", "email"]
 

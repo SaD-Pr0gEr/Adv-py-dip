@@ -3,5 +3,43 @@
 
 {% block title %} Product {% endblock %}
 {% block body %}
-    <h1 class="product_name">{{ content.name }}</h1>
+    <div class="product_container">
+        <img class="product_photo" src="{{ content.photo }}" alt="not here)">
+        <div class="description_container">
+            <h1 class="product_name">{{ content.name.capitalize }}</h1>
+            <p class="product_name">Описание: {{ content.description }}</p>
+            <p class="product_name">Стоимость: {{ content.price }} руб.</p>
+            <form action="/shop/api/v1/orders/" method="post">
+                <input class="product_name" type="number" placeholder="Кол-во" value="" style="display: block;">
+                <button class="button" type="submit">Купить</button>
+            </form>
+        </div>
+        <div class="your-comment-container">
+            <h2 class="h2-your-comment">Оставьте свой отзыв</h2>
+            <form action="/shop/api/v1/product-reviews/" method="post">
+                <p>Ваш отзыв<br>
+                <textarea name="comment" cols="30" rows="10"></textarea>
+            </form>
+        </div>
+    </div>
+    <div class="comment_container">
+        <h2>
+            Отзывы
+        </h2>
+        <div class="text-container">
+            {% for text in content.comments.all %}
+                <div class="text-comment">
+                    <h5 class="user">
+                        {{ text.user }}
+                    </h5>
+                    <p class="comment">
+                        {{ text.comment }}
+                    </p>
+                    <p>
+                        {{ text.rating }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

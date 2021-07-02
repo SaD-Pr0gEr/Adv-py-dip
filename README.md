@@ -23,21 +23,40 @@
 * [DjangoRestFramework(DRF)](https://www.django-rest-framework.org/)
 * [Pytest-Django](https://pytest-django.readthedocs.io/en/latest/#)
 * [Model-Bakery](https://model-bakery.readthedocs.io/en/latest/)
+* [Docker(Docker-compose)](https://docs.docker.com/)
 
 ## Устанавливаем зависимости
 * наберите команду **pip install -r requirements.txt** в cmd(терминале) проекта чтобы устанавливать
 все необходимые требования к проекту
+* После этого создаём файл .env в корневом каталоге(где `manage.py`) и добавим туда несколько переменных:
+`SECRET_KEY=секретный ключ проекта
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=имя БД
+SQL_USER=владелец БД
+SQL_PASSWORD=Пароль от БД
+SQL_HOST=localhost
+SQL_PORT=5432
+TESTING=0`
 * запустите миграции с помощью команды **python manage.py migrate**
 * в проекте есть тестовые данные для быстрой работы с проектом! чтобы передать их в базу данных 
 наберите команду **python manage.py loaddata fixtures.json**
 * запустите сервер с командой **python manage.py runserver**
 
 ## Запуск проекта на Docker 
-1. Пишем **docker compose build**
-2. **docker compose up**
-3. Прогоняем миграции. Для этого сначала наберите **docker exec -it (name_container_for_api) bash**
-4. Как только открыли bash консоль пишем **python manage.py migrate**
-5. Создаём супер юзера c **python manage.py createsuperuser**
-6. Если хотите добавить тестовые данные пишите **python manage.py loaddata fixtures.json**
+1. Замените переменное `SQL_HOST` в файле .env на `dj_diplom_db_1`
+2. Пишем **docker compose build**
+3. **docker compose up**
+4. Прогоняем миграции. Для этого сначала наберите **docker exec -it (name_container_for_api) bash**
+5. Как только открыли bash консоль пишем **python manage.py migrate**
+6. Создаём супер юзера c **python manage.py createsuperuser**
+7. Если хотите добавить тестовые данные пишите **python manage.py loaddata fixtures.json**
+
+## Запуск тестов
+* Для этого сначала замените пееменную TESTING в файле .env на 1
+* После просто вбейте в терминал pytest)
+
+## Документация к API
+* Можете пройти по пути `/swagger` или `/redoc` для документации
+* Также в проекте есть файл тестовых http запросов `http_examples_for_app_shop.http`
 
 После этого смело наслаждайтесь сервером)) Удачи в проектах)

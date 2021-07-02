@@ -1,26 +1,12 @@
 from rest_framework import serializers
-from rest_framework.authtoken.models import Token
 
-from shop.models import User, Orders, Product, ProductComment, Collections, OrderPositions, StatusChoices
+from shop.models import User, Orders, Product, ProductComment, Collections, OrderPositions
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "username", "first_name", "last_name", "email", "password"]
-
-    def create(self, validated_data):
-        if User.objects.filter(email=validated_data["email"]):
-            raise serializers.ValidationError("Человек с таким email уже существует!")
-        pop_user = validated_data.pop("user")
-        user = super().create(validated_data)
-        token = Token.objects.create(user=user)
-        return user
-
-    def update(self, instance, validated_data):
-        if instance.auth_token.pk != self.context["request"].auth.pk:
-            raise serializers.ValidationError("Вы не можете изменить чужой профиль!")
-        return super().update(instance, validated_data)
+        fields = ["id", "username"]
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -30,11 +16,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductCommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UsersSerializer(read_only=True)
 
     class Meta:
         model = ProductComment
         fields = ["id", "user", "product", "comment", "rating", "created_date", "updated_date"]
+        read_only_fields = ("user", )
 
     def create(self, validated_data):
         user = validated_data["user"]
@@ -44,7 +31,7 @@ class ProductCommentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         creator = instance.user
-        if creator.pk != self.context["request"].user.id:
+        if creator.pk != validated_data["user"].id:
             raise serializers.ValidationError(f"Вы не являетесь владельцем комментарий!")
         return super().update(instance, validated_data)
 
@@ -80,6 +67,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
         if validated_data["user"].is_staff and self.context["request"].data["order_status"] in ["open", "process", "done"]:
             validated_data["order_status"] = self.context["request"].data["order_status"]
+
         if products:
             total_sum = 0
             total_quantity = 0

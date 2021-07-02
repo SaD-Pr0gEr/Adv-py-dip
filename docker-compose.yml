@@ -11,7 +11,7 @@ services:
     networks:
       - db-network
     env_file:
-      - .env.dev
+      - .env
     environment:
       DATABASE_URL: postgresql://owner_dj_diplom:owner_dj_diplom@dj_diplom_db_1:5432/dj_diplom
   db:

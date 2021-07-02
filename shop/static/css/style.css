@@ -12,7 +12,7 @@ body {
     padding: 10px;
     text-align: center;
     font-size: 20px;
-
+    width: 100%;
 }
 
 
@@ -56,7 +56,7 @@ body {
     padding-top: 15px;
     font-size: 20px;
     width: 183px;
-    height: 200px;
+    height: 180px;
     background: purple;
     color: yellow;
     box-sizing: border-box;
@@ -83,7 +83,7 @@ body {
 
 .site_name {
     float: left;
-    margin-left: 100px;
+    margin-left: 40px;
     color: black;
 }
 
@@ -91,11 +91,11 @@ body {
 a.site_name {
     text-decoration: none;
     font-size: 25px;
+    width: 10%;
 }
 
 
 a.description {
-    color: #C60000;
     text-decoration: none;
     color: yellow;
 }
@@ -174,11 +174,6 @@ a.description {
     margin: 5px;
 }
 
-
-.product_name {
-    color: yellow;
-}
-
 .signup-body {
     background: yellow
 }
@@ -188,4 +183,77 @@ a.description {
     margin: 40px 10px 10px 10px;
     background: purple;
     padding: 10px
+}
+
+
+.product_container {
+    background: yellow;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+}
+
+.product_photo {
+    margin: 2px;
+    margin-left: 20px;
+    padding: 2px;
+    width: 30%;
+    height: 300px;
+}
+
+.product_name {
+    color: dark;
+    text-align: left;
+    margin: 2px;
+    margin-left: 50px;
+    padding: 2px;
+}
+
+.button {
+    margin: 2px;
+    margin-left: 50px;
+    padding: 2px;
+    background: purple;
+    color: yellow;
+    width: 20%;
+    text-align: center;
+}
+
+.description_container {
+    width: 40%;
+}
+
+.your-comment-container {
+    width: 25%;
+    text-align: center;
+}
+
+.h2-your-comment {
+    margin: 10px;
+}
+
+.authbox {
+    display: inline;
+    text-decoration: none;
+    color: yellow;
+    margin-left: 50px;
+}
+
+.auth {
+    text-decoration: none;
+    color: yellow;
+}
+
+.hello {
+    width: 80%;
+    display: inline;
+}
+
+.menu-container {
+    list-style-type: none;
+    margin: 5px;
+}
+
+.site-name-block {
+    display: inline;
 }

@@ -17,8 +17,7 @@
         {% for i in content %}
             <article class="product">
                 <img class="product_image" src="{{ i.photo }}" alt="Oops! not here">
-                <a href="product/?id={{i.id}}" class="description">{{ i.name }}</a>
-                <div class="price">{{ i.price }} руб.</div>
+                <a href="{% url 'product_page' i.id %}" class="description">{{ i.name }}</a>
             </article>
         {% endfor %}
     </div>
