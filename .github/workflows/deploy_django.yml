@@ -35,6 +35,7 @@ jobs:
       - name: Run tests
         env:
           TESTING: 1
+          HEROKU: 1
         run: pytest
 
   deploy:
@@ -47,6 +48,9 @@ jobs:
         uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
+          env:
+            TESTING: 1
+            HEROKU: 1
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "ci-cd-django-shop"
           heroku_email: dilovardehkanov730@gmail.com

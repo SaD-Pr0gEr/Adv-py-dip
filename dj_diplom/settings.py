@@ -14,9 +14,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
 load_dotenv()
-django_heroku.settings(locals())
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+if os.getenv("HEROKU") == "1":
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -165,3 +167,4 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 AUTH_USER_MODEL = "shop.User"
+django_heroku.settings(locals())
