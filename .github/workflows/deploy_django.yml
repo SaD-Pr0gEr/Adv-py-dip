@@ -31,12 +31,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run migrations
+        run: python manage.py migrate
+      - name: Run tests
         env:
           TESTING: 1
           HEROKU: 1
           SECRET_KEY: "sdfsdssdfdfdhghgdrterwt43534655"
-        run: python manage.py migrate
-      - name: Run tests
         run: pytest
 
   deploy:
