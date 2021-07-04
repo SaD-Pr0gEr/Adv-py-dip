@@ -42,20 +42,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: postgres
-        env:
-          POSTGRES_DB: dj_diplom
-          POSTGRES_USER: owner_dj_diplom
-          POSTGRES_PASSWORD: owner_dj_diplom
-        ports:
-          - 5432:5432
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
