@@ -36,6 +36,7 @@ jobs:
         env:
           TESTING: "1"
           HEROKU: "1"
+          SQL_HOST: "localhost"
           SECRET_KEY: "sdfsdssdfdfdhghgdrterwt43534655"
         run: pytest
 
