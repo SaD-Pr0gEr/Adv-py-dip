@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
+import dj_database_url
 load_dotenv()
 
 if os.getenv("HEROKU") == "1":
@@ -101,16 +102,6 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv("SQL_ENGINE"),
-        'NAME': os.getenv("SQL_DATABASE"),
-        'USER': os.getenv("SQL_USER"),
-        'PASSWORD': os.getenv("SQL_PASSWORD"),
-        'HOST': os.getenv("SQL_HOST", "localhost"),
-        'PORT': os.getenv("SQL_PORT", "5432"),
-    }
-}
 
 if os.getenv("TESTING") == "1":
     DATABASES = {
@@ -119,6 +110,19 @@ if os.getenv("TESTING") == "1":
             'NAME': 'mydatabase',
         }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv("SQL_ENGINE"),
+            'NAME': os.getenv("SQL_DATABASE"),
+            'USER': os.getenv("SQL_USER"),
+            'PASSWORD': os.getenv("SQL_PASSWORD"),
+            'HOST': os.getenv("SQL_HOST", "localhost"),
+            'PORT': os.getenv("SQL_PORT", "5432"),
+        }
+    }
+
+DATABASES['default'] =  dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
