@@ -102,27 +102,33 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
-if os.getenv("TESTING") == "1":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'mydatabase',
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3")
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': os.getenv("SQL_ENGINE"),
-            'NAME': os.getenv("SQL_DATABASE"),
-            'USER': os.getenv("SQL_USER"),
-            'PASSWORD': os.getenv("SQL_PASSWORD"),
-            'HOST': os.getenv("SQL_HOST", "localhost"),
-            'PORT': os.getenv("SQL_PORT", "5432"),
-        }
-    }
+}
 
-DATABASES['default'] =  dj_database_url.config()
+# if os.getenv("TESTING") == "1":
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': 'mydatabase',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': os.getenv("SQL_ENGINE"),
+#             'NAME': os.getenv("SQL_DATABASE"),
+#             'USER': os.getenv("SQL_USER"),
+#             'PASSWORD': os.getenv("SQL_PASSWORD"),
+#             'HOST': os.getenv("SQL_HOST", "localhost"),
+#             'PORT': os.getenv("SQL_PORT", "5432"),
+#         }
+#     }
+#
+# DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
